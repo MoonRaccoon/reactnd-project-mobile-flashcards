@@ -32,25 +32,34 @@ class Quiz extends Component {
   increment = (answer) => {
     if (answer === 'correct') {
       this.setState((state) => {
-        return {cardFacing: 'question', index: state.index + 1 }
+        return {
+          cardFacing: 'question',
+          score: state.score,
+          finished: state.finished,
+          index: state.index + 1
+        }
       })
       this.scoreUp()
     }
     else if (answer === 'incorrect') {
       this.setState((state) => {
-        return {...state, index: state.index++}
+        return {
+          cardFacing: 'question',
+          score: state.score,
+          finished: state.finished,
+          index: state.index + 1
+        }
       })
     }
   }
 
   scoreUp = () => {
     this.setState((state) => {
-      return { ...state, score: state.score + 1 }
+      return {  ...state, score: state.score + 1 }
     })
   }
 
   showScore = () => {
-    this.scoreUp()
     this.setState((state) => {
       return { ...state, finished: true}
     })
@@ -106,20 +115,25 @@ class Quiz extends Component {
                       textColor={white}
                       onPress={() => {
                         if (this.state.index < count - 1) {
-                          console.log(count)
+                          console.log(this.state.index)
                           return this.increment('correct')
                         }
-                        return this.showScore()
+                        else {
+                          this.scoreUp()
+                          return this.showScore()
+                        }
                       }}/>
               <Button text={"Incorrect"}
                       color={red}
                       textColor={white}
                       onPress={() => {
                         if (this.state.index < count - 1) {
-                          console.log(count)
+                          console.log(this.state.index)
                           return this.increment('incorrect')
                         }
-                        return this.showScore()
+                        else {
+                          return this.showScore()
+                        }
                       }}/>
             </View>
           </View>
