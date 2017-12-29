@@ -1,6 +1,6 @@
 
-const initialDeckState = [
-  {
+const initialDeckState = {
+  React: {
     title: 'React',
     questions: [
       {
@@ -13,7 +13,7 @@ const initialDeckState = [
       }
     ]
   },
-  {
+  JavaScript: {
     title: 'JavaScript',
     questions: [
       {
@@ -22,7 +22,7 @@ const initialDeckState = [
       }
     ]
   }
-]
+}
 
 function deck (state = initialDeckState, action) {
   return state

@@ -3,11 +3,16 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { StyleSheet, Text, View, Platform } from 'react-native';
 import ListView from './components/ListView'
+import Deck from './components/Deck'
 import CreateDeck from './components/CreateDeck'
+import CreateCard from './components/CreateCard'
 import reducer from './reducers'
 import { Constants } from 'expo'
-import { TabNavigator } from 'react-navigation'
+import { TabNavigator, StackNavigator } from 'react-navigation'
 import { purple, white, black } from "./utils/colors";
+import Quiz from './components/Quiz'
+
+
 
 const Tabs = TabNavigator({
   Decks: {
@@ -42,6 +47,43 @@ const Tabs = TabNavigator({
     }
   })
 
+
+const Stack = StackNavigator({
+  Decks: {
+    screen: Tabs
+  },
+  Deck: {
+    screen: Deck,
+    navigationOptions: ({navigation}) => ({
+      title: `${navigation.state.params.deckName}`,
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: black,
+      }
+    }),
+  },
+  createCard: {
+    screen: CreateCard,
+    navigationOptions: {
+      title: "Add Card",
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: black,
+      }
+    },
+  },
+  quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      title: "Quiz",
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: black,
+      }
+    },
+  }
+})
+
 function StatusBar ({backgroundColor, ...props}) {
   return (
     <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
@@ -56,7 +98,7 @@ export default class App extends React.Component {
       <Provider store={createStore(reducer)}>
         <View style={{flex: 1}}>
           <View style={{height: 20}}/>
-          <Tabs></Tabs>
+          <Stack></Stack>
         </View>
       </Provider>
     );

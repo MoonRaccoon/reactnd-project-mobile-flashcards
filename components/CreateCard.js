@@ -3,13 +3,16 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native
 import { black, white} from "../utils/colors";
 import { connect } from 'react-redux'
 import Button from './Button'
-class CreateDeck extends Component {
+
+class CreateCard extends Component {
 
   render() {
     return (
-      <View style={[{flex: 1}, styles.container]}>
-        <Text style={styles.prompt}>What is the title of your new deck?</Text>
-        <TextInput style={styles.textbox} placeholder={"Deck title"}/>
+      <View style={styles.container}>
+        <View style={{padding: 20}}></View>
+        <TextInput style={styles.textbox} placeholder={"Question"}/>
+        <View style={{padding: 10}}></View>
+        <TextInput style={styles.textbox} placeholder={"Answer"}/>
         <Button text={"Submit"}
                 color={black}
                 textColor={white}/>
@@ -21,11 +24,12 @@ class CreateDeck extends Component {
 styles = StyleSheet.create({
   container: {
     alignItems: 'center',
+    justifyContent: 'center'
   },
   prompt: {
     fontSize: 30,
     textAlign: 'center',
-    padding: 50
+    padding: 30
   },
   textbox: {
     width: 300,
@@ -37,4 +41,4 @@ styles = StyleSheet.create({
   },
 })
 
-export default CreateDeck
+export default CreateCard
