@@ -85,7 +85,8 @@ class Quiz extends Component {
 
 
   render() {
-    const { deckName, count } = this.props.navigation.state.params
+    const { deckName } = this.props.navigation.state.params
+    const count = this.props.decks[deckName].questions.length
 
     return (
       <View style={[{flex: 1}, styles.container]}>

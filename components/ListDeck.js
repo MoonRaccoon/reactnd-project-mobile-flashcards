@@ -1,17 +1,24 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, } from 'react-native'
+import { connect } from 'react-redux'
 
-export default function ListDeck ({ title, count, navigation }) {
-  return (
-    <View style={{flex: 1}}>
-      <TouchableOpacity
-        style={[{flex: 1}, styles.deck]}
-        onPress={() =>  (navigation.navigate('Deck', {deckName: title, count: count}))}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.count}>{count === 1 ? count + " card" : count + " cards"}</Text>
-      </TouchableOpacity>
-    </View>
-  )
+class ListDeck extends Component {
+
+  render() {
+    const { title, navigation } = this.props
+    const count = this.props.decks[title].questions.length
+
+    return (
+      <View style={{flex: 1}}>
+        <TouchableOpacity
+          style={[{flex: 1}, styles.deck]}
+          onPress={() => (navigation.navigate('Deck', { deckName: title }))}>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.count}>{count === 1 ? count + " card" : count + " cards"}</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -29,3 +36,11 @@ const styles = StyleSheet.create({
     fontSize: 15
   }
 })
+
+function mapStateToProps (state) {
+  return {
+    decks: state
+  }
+}
+
+export default connect(mapStateToProps)(ListDeck)

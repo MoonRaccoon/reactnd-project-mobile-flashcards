@@ -1,19 +1,38 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, KeyboardAvoidingView} from 'react-native'
 import { black, white} from "../utils/colors";
 import { connect } from 'react-redux'
+import { createDeck } from "../actions/index";
+import { saveDeckTitle } from "../utils/api";
 import Button from './Button'
+
 class CreateDeck extends Component {
+
+  state = {
+    title: ""
+  }
+
+  updateTitle = (title) => {
+    this.setState({ title: title})
+  }
 
   render() {
     return (
-      <View style={[{flex: 1}, styles.container]}>
+      <KeyboardAvoidingView behavior='padding' style={[{flex: 1}, styles.container]}>
         <Text style={styles.prompt}>What is the title of your new deck?</Text>
-        <TextInput style={styles.textbox} placeholder={"Deck title"}/>
-        <Button text={"Submit"}
+        <TextInput style={styles.textbox}
+                   placeholder={"Deck title"}
+                   onChangeText={this.updateTitle}
+                   value={this.state.title}/>
+        <Button text={"Create Deck"}
                 color={black}
-                textColor={white}/>
-      </View>
+                textColor={white}
+                onPress={() => {
+                  this.props.dispatch(createDeck(this.state.title))
+                  saveDeckTitle(this.state.title)
+                  this.props.navigation.goBack()
+                }}/>
+      </KeyboardAvoidingView>
     )
   }
 }
@@ -37,4 +56,4 @@ styles = StyleSheet.create({
   },
 })
 
-export default CreateDeck
+export default connect()(CreateDeck)

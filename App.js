@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { StyleSheet, Text, View, Platform } from 'react-native';
 import ListView from './components/ListView'
@@ -11,7 +11,9 @@ import { Constants } from 'expo'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import { purple, white, black } from "./utils/colors";
 import Quiz from './components/Quiz'
-
+import { initialData, fetchDecks } from "./utils/api";
+import thunk from 'redux-thunk'
+import { getDecks } from "./actions/index";
 
 
 const Tabs = TabNavigator({
@@ -93,9 +95,14 @@ function StatusBar ({backgroundColor, ...props}) {
 }
 
 export default class App extends React.Component {
+
+  componentDidMount() {
+    initialData()
+  }
+
   render() {
     return (
-      <Provider store={createStore(reducer)}>
+      <Provider store={createStore(reducer, applyMiddleware(thunk))}>
         <View style={{flex: 1}}>
           <View style={{height: 20}}/>
           <Stack></Stack>

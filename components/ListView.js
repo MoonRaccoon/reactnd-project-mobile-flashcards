@@ -4,9 +4,16 @@ import { StackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import ListDeck from './ListDeck'
 import Deck from './Deck'
+import {fetchDecks} from "../actions/index";
+
+//import { fetchDecks } from "../actions/index";
 
 
 class ListView extends Component {
+
+  componentDidMount() {
+    fetchDecks(this.props.dispatch)
+  }
 
   renderItem = ({item}) => {
     return <ListDeck
