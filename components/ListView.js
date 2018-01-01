@@ -1,13 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, FlatList} from 'react-native'
-import { StackNavigator } from 'react-navigation'
+import { View, FlatList} from 'react-native'
 import { connect } from 'react-redux'
 import ListDeck from './ListDeck'
-import Deck from './Deck'
 import {fetchDecks} from "../actions/index";
-
-//import { fetchDecks } from "../actions/index";
-
 
 class ListView extends Component {
 

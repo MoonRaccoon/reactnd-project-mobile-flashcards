@@ -1,17 +1,16 @@
 import React from 'react';
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-import { StyleSheet, Text, View, Platform } from 'react-native';
+import { View } from 'react-native';
 import ListView from './components/ListView'
 import Deck from './components/Deck'
 import CreateDeck from './components/CreateDeck'
 import CreateCard from './components/CreateCard'
 import reducer from './reducers'
-import { Constants } from 'expo'
 import { TabNavigator, StackNavigator } from 'react-navigation'
-import { purple, white, black } from "./utils/colors";
+import { white, black } from "./utils/colors";
 import Quiz from './components/Quiz'
-import { initialData, fetchDecks } from "./utils/api";
+import { initialData } from "./utils/api";
 import thunk from 'redux-thunk'
 import { setLocalNotification } from "./utils/helpers";
 
@@ -86,14 +85,6 @@ const Stack = StackNavigator({
   }
 })
 
-function StatusBar ({backgroundColor, ...props}) {
-  return (
-    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
-      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
-    </View>
-  )
-}
-
 export default class App extends React.Component {
 
   componentDidMount() {
@@ -112,11 +103,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

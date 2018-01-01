@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, } from 'react-native'
 import { black, white, green, red} from "../utils/colors";
 import { connect } from 'react-redux'
 import Button from './Button'
@@ -70,15 +70,6 @@ class Quiz extends Component {
     })
   }
 
-  increase = () => {
-    this.setState((state) => {
-      return {
-        cardFacing: "question",
-        index: state.index + 1,
-        score: state.index + 1 }
-    })
-  }
-
   clearQuiz = () => {
     this.setState({
       cardFacing: "question",
@@ -121,7 +112,6 @@ class Quiz extends Component {
                       textColor={white}
                       onPress={() => {
                         if (this.state.index < count - 1) {
-                          console.log(this.state.index)
                           return this.increment('correct')
                         }
                         else {
@@ -134,7 +124,6 @@ class Quiz extends Component {
                       textColor={white}
                       onPress={() => {
                         if (this.state.index < count - 1) {
-                          console.log(this.state.index)
                           return this.increment('incorrect')
                         }
                         else {

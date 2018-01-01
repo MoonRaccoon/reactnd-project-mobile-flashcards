@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, } from 'react-native'
+import { View, Text, StyleSheet, } from 'react-native'
 import { connect } from 'react-redux'
 import { white, black } from "../utils/colors";
 import Button from './Button'
-import { StackNavigator } from 'react-navigation'
-import CreateCard from './CreateCard'
 
 
 class Deck extends Component {

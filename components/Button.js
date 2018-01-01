@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native'
+import React from 'react'
+import { Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 export default function Button ({text, color, textColor, onPress}) {
   const styles = StyleSheet.create({
