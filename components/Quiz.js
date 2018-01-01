@@ -3,8 +3,13 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput} from 'react-native
 import { black, white, green, red} from "../utils/colors";
 import { connect } from 'react-redux'
 import Button from './Button'
+import { clearLocalNotification, setLocalNotification } from "../utils/helpers";
 
 class Quiz extends Component {
+
+  componentDidMount() {
+    clearLocalNotification().then(setLocalNotification())
+  }
 
   state = {
     cardFacing: "question",

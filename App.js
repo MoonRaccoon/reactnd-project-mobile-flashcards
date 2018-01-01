@@ -13,7 +13,7 @@ import { purple, white, black } from "./utils/colors";
 import Quiz from './components/Quiz'
 import { initialData, fetchDecks } from "./utils/api";
 import thunk from 'redux-thunk'
-import { getDecks } from "./actions/index";
+import { setLocalNotification } from "./utils/helpers";
 
 
 const Tabs = TabNavigator({
@@ -98,6 +98,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
     initialData()
+    setLocalNotification()
   }
 
   render() {
