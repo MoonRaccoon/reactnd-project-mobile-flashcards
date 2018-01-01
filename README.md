@@ -11,3 +11,5 @@ To get the app up and running:
 * Run yarn install and yarn start
     
 Then, either scan a QR code with the Expo app on a mobile device, or launch an emulator
+
+Tested on: Android
