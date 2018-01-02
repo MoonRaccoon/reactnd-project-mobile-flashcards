@@ -1,11 +1,9 @@
-export const CREATE_DECK = 'CREATE_DECK'
-export const CREATE_CARD = 'CREATE_CARD'
-export const GET_DECKS = 'GET_DECKS'
+import * as types from './types'
 import * as api from '../utils/api'
 
 export const getDecks = (decks) => {
   return {
-    type: GET_DECKS,
+    type: types.GET_DECKS,
     decks: decks
   }
 }
@@ -19,14 +17,14 @@ export function fetchDecks (dispatch) {
 
 export const createDeck = (deckName) => {
   return {
-    type: CREATE_DECK,
+    type: types.CREATE_DECK,
     deckName: deckName
   }
 }
 
 export const createCard = (deckName, question, answer) => {
   return {
-    type: CREATE_CARD,
+    type: types.CREATE_CARD,
     deckName: deckName,
     question: question,
     answer: answer

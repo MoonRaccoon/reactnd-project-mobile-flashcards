@@ -1,10 +1,10 @@
-import { CREATE_DECK, CREATE_CARD, GET_DECKS } from "../actions/index";
+import * as types from "../actions/types";
 
 function deck (state = {}, action) {
   switch (action.type) {
-    case GET_DECKS:
+    case types.GET_DECKS:
       return action.decks
-    case CREATE_DECK:
+    case types.CREATE_DECK:
       return {
         ...state,
         [action.deckName]: {
@@ -12,7 +12,7 @@ function deck (state = {}, action) {
           questions: []
         }
       }
-    case CREATE_CARD:
+    case types.CREATE_CARD:
       return {
         ...state,
         [action.deckName]: {

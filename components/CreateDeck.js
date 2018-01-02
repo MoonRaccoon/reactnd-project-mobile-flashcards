@@ -30,8 +30,8 @@ class CreateDeck extends Component {
                 onPress={() => {
                   this.props.dispatch(createDeck(this.state.title))
                   saveDeckTitle(this.state.title)
+                  this.props.navigation.navigate('Deck', { deckName: this.state.title })
                   this.updateTitle("")
-                  this.props.navigation.goBack()
                 }}/>
       </KeyboardAvoidingView>
     )

@@ -79,75 +79,86 @@ class Quiz extends Component {
     })
   }
 
-
-  render() {
+  question = () => {
     const { deckName } = this.props.navigation.state.params
     const count = this.props.decks[deckName].questions.length
 
     return (
-      <View style={[{flex: 1}, styles.container]}>
-        {!this.state.finished ?
-          <View style={styles.container}>
-          <Text style={{marginTop: 30}}>{(this.state.index + 1) + "/" + count}</Text>
-          <View style={styles.container}>
-            {this.state.cardFacing === 'question' ?
-              <View style={styles.container}>
-                <Text style={styles.prompt}>{this.getQuestion(deckName, this.state.index)}</Text>
-                <TouchableOpacity onPress={() => (this.changeFacing('answer'))}>
-                  <Text style={{color: red}}>Answer</Text>
-                </TouchableOpacity>
-              </View>
-              :
-              <View style={styles.container}>
-                <Text style={styles.prompt}>{this.getAnswer(deckName, this.state.index)}</Text>
-                <TouchableOpacity onPress={() => (this.changeFacing('question'))}>
-                  <Text style={{color: green}}>Question</Text>
-                </TouchableOpacity>
-              </View>
-              }
-          </View>
-            <View style={{padding: 60}}>
-              <Button text={"Correct"}
-                      color={green}
-                      textColor={white}
-                      onPress={() => {
-                        if (this.state.index < count - 1) {
-                          return this.increment('correct')
-                        }
-                        else {
-                          this.scoreUp()
-                          return this.showScore()
-                        }
-                      }}/>
-              <Button text={"Incorrect"}
-                      color={red}
-                      textColor={white}
-                      onPress={() => {
-                        if (this.state.index < count - 1) {
-                          return this.increment('incorrect')
-                        }
-                        else {
-                          return this.showScore()
-                        }
-                      }}/>
+      <View style={styles.container}>
+        <Text style={{marginTop: 30}}>{(this.state.index + 1) + "/" + count}</Text>
+        <View style={styles.container}>
+          {this.state.cardFacing === 'question' ?
+            <View style={styles.container}>
+              <Text style={styles.prompt}>{this.getQuestion(deckName, this.state.index)}</Text>
+              <TouchableOpacity onPress={() => (this.changeFacing('answer'))}>
+                <Text style={{color: red}}>Answer</Text>
+              </TouchableOpacity>
             </View>
-          </View>
-          :
-          <View>
-            <Text style={styles.prompt}>Final Score:</Text>
-            <Text style={styles.prompt}>{this.state.score + "/" + count}</Text>
-            <View style={{padding: 60}}>
-              <Button text={"Reset Quiz"}
-                      color={black}
-                      textColor={white}
-                      onPress={this.clearQuiz}/>
-              <Button text={"Return to Deck"}
-                      color={black}
-                      textColor={white}
-                      onPress={() => (this.props.navigation.goBack())}/>
+            :
+            <View style={styles.container}>
+              <Text style={styles.prompt}>{this.getAnswer(deckName, this.state.index)}</Text>
+              <TouchableOpacity onPress={() => (this.changeFacing('question'))}>
+                <Text style={{color: green}}>Question</Text>
+              </TouchableOpacity>
             </View>
-          </View>
           }
+        </View>
+        <View style={{padding: 60}}>
+          <Button text={"Correct"}
+                  color={green}
+                  textColor={white}
+                  onPress={() => {
+                    if (this.state.index < count - 1) {
+                      return this.increment('correct')
+                    }
+                    else {
+                      this.scoreUp()
+                      return this.showScore()
+                    }
+                  }}/>
+          <Button text={"Incorrect"}
+                  color={red}
+                  textColor={white}
+                  onPress={() => {
+                    if (this.state.index < count - 1) {
+                      return this.increment('incorrect')
+                    }
+                    else {
+                      return this.showScore()
+                    }
+                  }}/>
+        </View>
+      </View>
+    )
+  }
+
+  finalScore = () => {
+    const { deckName } = this.props.navigation.state.params
+    const count = this.props.decks[deckName].questions.length
+
+    return (
+      <View>
+        <Text style={styles.prompt}>Final Score:</Text>
+        <Text style={styles.prompt}>{this.state.score + "/" + count}</Text>
+        <View style={{padding: 60}}>
+          <Button text={"Reset Quiz"}
+                  color={black}
+                  textColor={white}
+                  onPress={this.clearQuiz}/>
+          <Button text={"Return to Deck"}
+                  color={black}
+                  textColor={white}
+                  onPress={() => (this.props.navigation.goBack())}/>
+        </View>
+      </View>
+    )
+  }
+
+
+  render() {
+    return (
+      <View style={[{flex: 1}, styles.container]}>
+        {!this.state.finished ? this.question() : this.finalScore() }
       </View>
 
     )
