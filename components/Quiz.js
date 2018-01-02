@@ -88,7 +88,7 @@ class Quiz extends Component {
       <View style={[{flex: 1}, styles.container]}>
         {!this.state.finished ?
           <View style={styles.container}>
-          <Text>{(this.state.index + 1) + "/" + count}</Text>
+          <Text style={{marginTop: 30}}>{(this.state.index + 1) + "/" + count}</Text>
           <View style={styles.container}>
             {this.state.cardFacing === 'question' ?
               <View style={styles.container}>
@@ -160,7 +160,7 @@ styles = StyleSheet.create({
     justifyContent: 'center'
   },
   prompt: {
-    fontSize: 30,
+    fontSize: 20,
     textAlign: 'center',
     padding: 30
   },

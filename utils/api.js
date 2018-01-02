@@ -7,7 +7,7 @@ export function fetchDecks () {
 }
 
 export function initialData () {
-  return AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify({
+  return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
     React: {
       title: 'React',
       questions: [
@@ -43,15 +43,23 @@ export function saveDeckTitle (title) {
 }
 
 export function addCardToDeck (title, question, answer) {
-  return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-    [title]: {
-      title: title,
-      questions: [
-        {
-          question: question,
-          answer: answer
-        }
-      ]
-    }
-  }))
+  // TODO: get value of old questions array, merge with new value
+
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY).then((data) => {
+    const oldQuestions = JSON.parse(data)[title].questions
+
+    return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
+      [title]: {
+        title: title,
+        questions: oldQuestions.concat([
+          {
+            question: question,
+            answer: answer
+          }
+        ])
+      }
+    }))}
+  )
+
+
 }

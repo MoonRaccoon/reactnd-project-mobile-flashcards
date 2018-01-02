@@ -1,18 +1,19 @@
 import React from 'react';
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-import { View } from 'react-native';
+import { View , Platform, StatusBar } from 'react-native';
 import ListView from './components/ListView'
 import Deck from './components/Deck'
 import CreateDeck from './components/CreateDeck'
 import CreateCard from './components/CreateCard'
 import reducer from './reducers'
-import { TabNavigator, StackNavigator } from 'react-navigation'
-import { white, black } from "./utils/colors";
+import { TabNavigator, StackNavigator  } from 'react-navigation'
+import { white, black, gray } from "./utils/colors";
 import Quiz from './components/Quiz'
-import { initialData } from "./utils/api";
+import { initialData, fetchDecks } from "./utils/api";
 import thunk from 'redux-thunk'
 import { setLocalNotification } from "./utils/helpers";
+import { Constants } from 'expo'
 
 
 const Tabs = TabNavigator({
@@ -32,11 +33,11 @@ const Tabs = TabNavigator({
     tabBarOptions: {
       activeTintColor: white,
       labelStyle: {
-        color: black
+        color: white
       },
       style: {
         height: 56,
-        backgroundColor: white,
+        backgroundColor: black,
         shadowColor: 'rgba(0, 0, 0, 0.24)',
         shadowOffset: {
           width: 0,
@@ -51,7 +52,14 @@ const Tabs = TabNavigator({
 
 const Stack = StackNavigator({
   Decks: {
-    screen: Tabs
+    screen: Tabs,
+    navigationOptions: {
+      title: "Mobile Flashcards",
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: black,
+      }
+    },
   },
   Deck: {
     screen: Deck,
@@ -85,6 +93,14 @@ const Stack = StackNavigator({
   }
 })
 
+function MobileStatusBar ({backgroundColor, ...props}) {
+  return (
+    <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </View>
+  )
+}
+
 export default class App extends React.Component {
 
   componentDidMount() {
@@ -96,8 +112,11 @@ export default class App extends React.Component {
     return (
       <Provider store={createStore(reducer, applyMiddleware(thunk))}>
         <View style={{flex: 1}}>
-          <View style={{height: 20}}/>
-          <Stack></Stack>
+          <MobileStatusBar
+            backgroundColor="black"
+            barStyle="light-content"
+          />
+          <Stack/>
         </View>
       </Provider>
     );

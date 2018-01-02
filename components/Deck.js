@@ -40,10 +40,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 50
+    fontSize: 40
   },
   count: {
-    fontSize: 30
+    fontSize: 25
   },
 })
 
